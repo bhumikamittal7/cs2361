@@ -1,0 +1,10 @@
+openssl dsaparam -out dsaparam.pem 1024
+openssl dsaparam -in dsaparam.pem -text
+openssl gendsa -out skey_A.pem dsaparam.pem
+openssl dsa -in skey_A.pem -text
+openssl dsa -in skey_A.pem -out pubkey_A.pem -pubout
+openssl dsa -pubin -in pubkey_A.pem -text
+
+openssl dgst -sha1 -sign skey_A.pem -out sign_msg_A.bin CS2361_A1_Bhumika_Mittal.pdf
+
+openssl dgst -sha1 -verify pubkey_A.pem -signature sign_msg_A.bin CS2361_A1_Bhumika_Mittal.pdf
